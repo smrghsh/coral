@@ -1,2 +1,4 @@
 static/5x5%23-10_-10_-5_-5%23-2_-2.ply filter=lfs diff=lfs merge=lfs -text
 static/5x5%23-10_-15_-5_-10%23-2_-3.ply filter=lfs diff=lfs merge=lfs -text
+docs/5x5%23-10_-10_-5_-5%23-2_-2.ply filter=lfs diff=lfs merge=lfs -text
+docs/5x5%23-10_-15_-5_-10%23-2_-3.ply filter=lfs diff=lfs merge=lfs -text
