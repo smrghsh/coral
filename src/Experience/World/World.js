@@ -3,7 +3,7 @@ import Experience from "../Experience.js";
 import Environment from "./Environment.js";
 import Floor from "./Floor.js";
 import * as GaussianSplats3D from "@mkkellogg/gaussian-splats-3d";
-
+import Agent from "./Agent.js";
 export default class World {
   constructor() {
     this.experience = new Experience();
@@ -15,6 +15,8 @@ export default class World {
     // Wait for resources
     this.ready = false;
     this.resources.on("ready", () => {
+      this.agent = new Agent();
+      this.agent.init();
       // Setup
       console.log("resources ready");
       this.floor = new Floor();

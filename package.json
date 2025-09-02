@@ -26,6 +26,7 @@
     "@turf/transform-rotate": "^5.1.5",
     "@turf/transform-translate": "^5.1.5",
     "@turf/union": "6.2.0-alpha.2",
+    "ai": "^5.0.29",
     "buffer": "^6.0.3",
     "get-pixels": "^3.3.3",
     "lil-gui": "^0.17.0",
