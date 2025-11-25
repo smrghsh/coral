@@ -41,7 +41,7 @@ export default class World {
       console.log("loading splat mesh");
       try {
         const splatMesh = new SplatMesh({
-          url: "/coral001.sog",
+          url: "./coral001.sog",
         });
         console.log("SplatMesh created:", splatMesh);
 
