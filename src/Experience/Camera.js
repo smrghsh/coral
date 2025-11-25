@@ -10,6 +10,7 @@ export default class Camera {
     this.canvas = this.experience.canvas;
     this.setInstance();
     this.setOrbitControls();
+    this.defaultPosition();
   }
   setInstance() {
     this.instance = new THREE.PerspectiveCamera(
@@ -18,14 +19,14 @@ export default class Camera {
       0.1,
       100
     );
+    this.instance.position.set(4, 4, 4);
+    // this.lookAt = new THREE.Vector3(0, 0, -3);
     this.lookAt = new THREE.Vector3(0, 1, 0);
     this.cameraGroup.add(this.instance);
   }
   setOrbitControls() {
     this.controls = new OrbitControls(this.instance, this.canvas);
     this.controls.enableDamping = true;
-    this.controls.target = new THREE.Vector3(0, 0.9, 0);
-    this.instance.position.set(0, 0.9, 5);
   }
   resize() {
     this.instance.aspect = this.sizes.width / this.sizes.height;
@@ -34,17 +35,5 @@ export default class Camera {
   update() {
     this.controls.update();
   }
-  defaultPosition() {
-    this.instance.position.set(0, 0.9, 5);
-    this.lookAt = new THREE.Vector3(0, 1, 0);
-
-    this.controls.target = new THREE.Vector3(0, 0.9, 0);
-  }
-  examplePosition() {
-    //    this.instance.position.set(0, 0.9, 5);
-    this.instance.position.set(-1, 2, 1);
-    this.lookAt = new THREE.Vector3(0, 0, 0);
-
-    this.controls.target = new THREE.Vector3(0, 0.0, 0);
-  }
+  defaultPosition() {}
 }

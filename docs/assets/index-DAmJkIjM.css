@@ -1,0 +1,177 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Sour Gummy", sans-serif;
+}
+
+h1,
+em,
+a {
+  font-family: "Sour Gummy", sans-serif;
+}
+
+p,
+li {
+  font-family: "Montserrat", sans-serif;
+}
+
+h1 {
+  font-size: 1.3em;
+}
+
+h2 {
+  font-weight: 300;
+  font-size: 1.2em;
+}
+
+p,
+li {
+  font-size: 0.8em;
+  font-weight: 300;
+}
+
+/* html,
+body
+{
+    overflow: hidden;
+} */
+
+.webgl {
+  /* position: fixed; */
+  /* top: 0;
+    left: 0; */
+  outline: none;
+  position: absolute;
+  z-index: 0;
+}
+
+#chat-agent {
+  background: rgba(20, 30, 40, 0.85);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+  padding: 1em 1.2em 1em 1.2em;
+  margin-top: 2em;
+  margin-bottom: 1em;
+  max-width: 420px;
+  color: #eaf6fb;
+  font-family: "Montserrat", sans-serif;
+}
+
+.chat-header {
+  font-size: 1.1em;
+  font-weight: 600;
+  margin-bottom: 0.7em;
+  letter-spacing: 0.02em;
+  color: #aee6f9;
+  text-shadow: 0 1px 8px #0a2233;
+}
+
+.chat-box {
+  display: flex;
+  gap: 0.5em;
+  margin-bottom: 1em;
+}
+
+#chat-input {
+  flex: 1;
+  padding: 0.6em 1em;
+  border-radius: 8px;
+  border: none;
+  background: #233a4d;
+  color: #eaf6fb;
+  font-size: 1em;
+  outline: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: background 0.2s;
+}
+
+#chat-input:focus {
+  background: #2c4a65;
+}
+
+#chat-send {
+  padding: 0.6em 1.2em;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(90deg, #1a3442 0%, #274b6d 100%);
+  color: #fff;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: background 0.2s, transform 0.1s;
+}
+
+#chat-send:hover {
+  background: linear-gradient(90deg, #274b6d 0%, #1a3442 100%);
+  transform: translateY(-2px) scale(1.04);
+}
+
+#chat-log {
+  margin-top: 0.5em;
+  font-size: 0.98em;
+  min-height: 1.5em;
+}
+
+#chat-log div {
+  margin-bottom: 0.4em;
+  padding: 0.5em 0.7em;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  word-break: break-word;
+}
+
+#chat-log div:nth-child(odd) {
+  background: rgba(62, 198, 224, 0.08);
+}
+
+main {
+  position: absolute;
+  /* round corners */
+  border-radius: 10px;
+  margin: 0.5em;
+  padding: 0.5em;
+  z-index: 10;
+  color: aliceblue;
+  background-color: rgba(0, 0, 0, 0.5);
+  max-width: 400px;
+}
+
+/* this is so the main panel doesn't collide with stats.js panels */
+
+@media (min-width: 600px) {
+  main {
+    margin-left: 90px;
+    margin-top: 90px;
+    padding: 2em;
+    max-width: 450px;
+  }
+}
+
+main > p {
+  margin-top: 0.5em;
+}
+
+main > ol {
+  margin: 0.25em;
+}
+
+main > ol > li {
+  margin: 0.2em;
+}
+
+a {
+  color: aliceblue;
+}
+
+main > a {
+  margin: 0.2em;
+  /* not inlne */
+  /* display: block; */
+}
+
+main > a:hover {
+  color: lightblue;
+}

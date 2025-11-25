@@ -7,10 +7,18 @@ export default class Environment {
     this.scene = this.experience.scene;
     this.resources = this.experience.resources;
     this.debug = this.experience.debug;
-    this.scene.background = new THREE.Color("MidnightBlue");
+
+    // Ocean-like background and fog
+    this.scene.background = new THREE.Color(2 / 255, 2 / 255, 3 / 255); // Dark ocean color
+    this.scene.fog = new THREE.Fog(
+      new THREE.Color(130 / 255, 175 / 255, 195 / 255),
+      2,
+      10
+    ); // Light ocean fog
+
     this.setSunLight();
     this.setAmbientLight();
-    this.scene.fog = new THREE.Fog("#ffffff", 1, 15);
+
     this.debug.ui
       .addColor(this.scene, "background")
       .name("Background Color")
