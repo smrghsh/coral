@@ -41,7 +41,7 @@ export default class World {
       console.log("loading splat mesh");
       try {
         const splatMesh = new SplatMesh({
-          url: "/5x5%23-10_-10_-5_-5%23-2_-2.ply",
+          url: "/coral001.sog",
         });
         console.log("SplatMesh created:", splatMesh);
 
@@ -49,7 +49,7 @@ export default class World {
         splatMesh.rotation.x = -Math.PI / 2;
         splatMesh.position.set(7, 6.8, -6);
         splatMesh.scale.set(1, 1, 1);
-        
+
         console.log("SplatMesh position:", splatMesh.position);
         console.log("SplatMesh rotation:", splatMesh.rotation);
         console.log("SplatMesh scale:", splatMesh.scale);
