@@ -3,6 +3,7 @@ import Experience from "../Experience.js";
 import Environment from "./Environment.js";
 import Floor from "./Floor.js";
 import { SplatMesh } from "./spark.module.js";
+import Sky from "./Sky.js";
 export default class World {
   constructor() {
     this.experience = new Experience();
@@ -62,7 +63,7 @@ export default class World {
       } catch (error) {
         console.error("Error creating SplatMesh:", error);
       }
-
+      this.sky = new Sky();
       this.ready = true;
     });
   }
