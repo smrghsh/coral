@@ -20,14 +20,15 @@ export default class World {
       console.log("loading splat mesh");
       try {
         const splatMesh = new SplatMesh({
-          url: "./coral001.sog",
+          url: "./coral002.sog",
         });
         console.log("SplatMesh created:", splatMesh);
 
         // Position and rotate similar to the commented GaussianSplats3D setup
-        splatMesh.rotation.x = -Math.PI / 2;
-        splatMesh.position.set(7, 6.8, -6);
-        splatMesh.scale.set(1, 1, 1);
+        splatMesh.rotation.x = -Math.PI;
+
+        // splatMesh.position.set(7, 6.8, -6);
+        // splatMesh.scale.set(1, 1, 1);
 
         console.log("SplatMesh position:", splatMesh.position);
         console.log("SplatMesh rotation:", splatMesh.rotation);
