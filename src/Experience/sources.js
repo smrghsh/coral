@@ -4,6 +4,11 @@ export default [
     type: "texture",
     path: "textures/butterfly.png",
   },
+  {
+    name: "goggleModel",
+    type: "glbModel",
+    path: "goggle.glb",
+  },
   // {
   //   name: "butterflyTexture2",
   //   type: "texture",
