@@ -3,6 +3,7 @@ import Experience from "../Experience.js";
 import Environment from "./Environment.js";
 import Floor from "./Floor.js";
 import { SplatMesh } from "./spark.module.js";
+import Sky from "./Sky.js";
 export default class World {
   constructor() {
     this.experience = new Experience();
@@ -13,19 +14,6 @@ export default class World {
     // Wait for resources
     this.ready = false;
     this.resources.on("ready", () => {
-      // this.goggle = this.resources.items.goggleModel.scene;
-      // this.sphere = new THREE.Mesh(
-      //   new THREE.SphereGeometry(0.25, 8, 8),
-      //   new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: false }),
-      // );
-      // this.sphere.scale.set(0.3, 0.5, 0.3);
-      // this.goggle.scale.set(0.1, 0.1, 0.1);
-
-      // this.sphere.position.set(0, 1.5);
-      // this.goggle.position.set(0, 1.48, 0.1);
-      // this.scene.add(this.sphere);
-      // this.scene.add(this.goggle);
-
       this.floor = new Floor();
       this.axesHelper = new THREE.AxesHelper(5);
       this.scene.add(this.axesHelper);
@@ -63,7 +51,7 @@ export default class World {
       } catch (error) {
         console.error("Error creating SplatMesh:", error);
       }
-
+      this.sky = new Sky();
       this.ready = true;
     });
   }
