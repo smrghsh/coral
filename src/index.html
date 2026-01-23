@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -44,6 +44,7 @@
         href="https://huggingface.co/datasets/wildflow/sweet-corals/tree/main/_indonesia_tabuhan_p1_20250210/splats"
         >Coral Dataset</a
       >
+      |
       <a href="https://wildflow.ai/">wildflow.ai</a>
       <!-- 
       <hr />
@@ -63,51 +64,5 @@
     </main>
 
     <script type="module" src="./script.js"></script>
-    <script type="module">
-      const chatInput = document.getElementById("chat-input");
-      const chatSend = document.getElementById("chat-send");
-      const chatLog = document.getElementById("chat-log");
-
-      function addChatMessage(role, text) {
-        const msg = document.createElement("div");
-        msg.textContent = `${role}: ${text}`;
-        msg.style.margin = "0.2em 0";
-        chatLog.appendChild(msg);
-      }
-
-      async function sendChat() {
-        const query = chatInput.value.trim();
-        if (!query) return;
-        addChatMessage("You", query);
-        console.log("User query:", query);
-        chatInput.value = "";
-        // Call agent and display response below
-        if (
-          window.experience &&
-          window.experience.world &&
-          window.experience.world.agent
-        ) {
-          addChatMessage("Agent", "..."); // show loading
-          try {
-            const response = await window.experience.world.agent.ask(query);
-            // Remove last 'Agent: ...' loading message
-            chatLog.lastChild.textContent = `Agent: ${response}`;
-            console.log("Agent response:", response);
-          } catch (err) {
-            chatLog.lastChild.textContent = `Agent: Error`;
-            console.error("Agent error:", err);
-          }
-        } else {
-          addChatMessage("Agent", "Agent not available");
-        }
-      }
-
-      chatSend.addEventListener("click", sendChat);
-      chatInput.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
-          sendChat();
-        }
-      });
-    </script>
   </body>
 </html>

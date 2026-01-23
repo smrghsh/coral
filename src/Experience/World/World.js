@@ -2,10 +2,7 @@ import * as THREE from "three";
 import Experience from "../Experience.js";
 import Environment from "./Environment.js";
 import Floor from "./Floor.js";
-import * as GaussianSplats3D from "@mkkellogg/gaussian-splats-3d";
 import { SplatMesh } from "./spark.module.js";
-import Agent from "./Agent.js";
-import MagnifyingGlass from "./MagnifyingGlass.js";
 export default class World {
   constructor() {
     this.experience = new Experience();
@@ -16,28 +13,11 @@ export default class World {
     // Wait for resources
     this.ready = false;
     this.resources.on("ready", () => {
-      this.agent = new Agent();
-      // this.magnifyingGlass = new MagnifyingGlass();
       this.floor = new Floor();
       this.axesHelper = new THREE.AxesHelper(5);
       this.scene.add(this.axesHelper);
       this.environment = new Environment();
 
-      // const viewer = new GaussianSplats3D.DropInViewer({
-      //   webXRMode: GaussianSplats3D.WebXRMode.VR,
-      // });
-      // viewer.addSplatScene("/5x5%23-10_-10_-5_-5%23-2_-2.ply").then(() => {
-      //   // viewer.start();
-      //   console.log("gaussian splat loaded");
-      //   // hide the axes helper
-      //   this.axesHelper.visible = false;
-      //   viewer.splatMesh.rotation.x -= Math.PI / 2;
-      //   viewer.splatMesh.position.set(7, 6.8, -6);
-      // });
-      // viewer.position.x -= 1;
-      // viewer.rotation.y += Math.PI / 2;
-      // viewer.position.z -= 2;
-      // this.scene.add(viewer);
       console.log("loading splat mesh");
       try {
         const splatMesh = new SplatMesh({

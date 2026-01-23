@@ -1,16 +1,19 @@
 import * as THREE from "three";
-import Debug from "./Utils/Debug.js";
-import Sizes from "./Utils/Sizes.js";
-import Resources from "./Utils/Resources.js";
-import Mouse from "./Utils/Mouse.js";
-import Camera from "./Camera.js";
-import Renderer from "./Renderer.js";
+import {
+  Debug,
+  Sizes,
+  Time,
+  Resources,
+  Camera,
+  Renderer,
+  Networking,
+  User,
+  Controller,
+} from "./brahma/Brahma.js";
+import EventEmitter from "./brahma/utilities/EventEmitter.js";
 import World from "./World/World.js";
 import sources from "./sources.js";
 import { VRButton } from "three/examples/jsm/webxr/VRButton.js";
-import Controllers from "./Controllers.js";
-import EventEmitter from "./Utils/EventEmitter.js";
-import StatsPanels from "./Utils/StatsPanels.js";
 
 let instance = null;
 
@@ -21,21 +24,25 @@ export default class Experience {
       return instance;
     }
     instance = this;
-    // Global access
     window.experience = this;
+
     this.canvas = canvas;
-    this.emitter = new EventEmitter();
+    this.debug = new Debug();
+    this.user = new User();
+    const sizes = {
+      width: window.innerWidth,
+      height: window.innerHeight,
+    };
     this.sizes = new Sizes();
+    this.time = new Time();
     this.scene = new THREE.Scene();
+    // console.log("sources", sources);
     this.resources = new Resources(sources);
     this.world = new World();
     this.cameraGroup = new THREE.Group();
-    this.scene.add(this.cameraGroup);
+
     this.camera = new Camera();
     this.renderer = new Renderer();
-    this.mouse = new Mouse();
-    this.debug = new Debug();
-    this.statsPanels = new StatsPanels();
 
     /**
      * Clock
@@ -43,33 +50,31 @@ export default class Experience {
     this.clock = new THREE.Clock();
     this.clock.start();
 
+    this.scene.add(this.cameraGroup);
+    this.controller = new Controller();
     this.renderer.instance.xr.enabled = true;
-
-    const sessionInit = {
-      optionalFeatures: ["hand-tracking"], //necessary to get the hands going
-    };
-
-    document.body.appendChild(
-      VRButton.createButton(this.renderer.instance, sessionInit)
-    );
-
+    document.body.appendChild(VRButton.createButton(this.renderer.instance));
+    // samir believes this gets hit when we're in XR
     this.renderer.instance.setAnimationLoop(() => {
-      this.statsPanels.begin();
-      this.world.update();
-      this.controllers?.update();
+      this.controller.update();
+      if (this.networking?.canSendEmbodiment) {
+        this.networking.sendEmbodiment(
+          this.camera.instance.matrixWorld,
+          this.controller.controller1.matrixWorld,
+          this.controller.controller2.matrixWorld,
+        );
+      }
+
       this.renderer.instance.render(this.scene, this.camera.instance);
-      this.statsPanels.end();
     });
-
-    this.controllers = new Controllers();
-
-    this.raycaster = new THREE.Raycaster();
-    this.INTERSECTED = null;
 
     this.sizes.on("resize", () => {
       this.resize();
       this.camera.resize();
       this.renderer.resize();
+    });
+    this.time.on("tick", () => {
+      this.update();
     });
   }
 
@@ -77,33 +82,19 @@ export default class Experience {
     console.log("resized occured");
     this.camera.resize();
   }
-  update() {}
-  destroy() {
-    // TBH I've never used this
-    this.sizes.off("resize");
-    this.time.off("tick");
-
-    // Traverse the whole scene
-    this.scene.traverse((child) => {
-      // Test if it's a mesh
-      if (child instanceof THREE.Mesh) {
-        child.geometry.dispose();
-
-        // Loop through the material properties
-        for (const key in child.material) {
-          const value = child.material[key];
-
-          // Test if there is a dispose function
-          if (value && typeof value.dispose === "function") {
-            value.dispose();
-          }
-        }
-      }
-    });
-    this.camera.controls.dispose();
-    this.renderer.instance.dispose();
-    if (this.debug.active) {
-      this.debug.ui.destroy();
+  update() {
+    this.camera.update();
+    if (!this.isXRActive()) {
+      // this is executed when out of XR i.e. desktop
+      this.cameraGroup.updateMatrixWorld();
+      this.camera.instance.updateMatrixWorld();
+      this.pointer.hover();
+    } else {
+      console.log("im in headset");
     }
+    this.world.update();
+  }
+  isXRActive() {
+    return this.renderer.instance.xr.isPresenting;
   }
 }
