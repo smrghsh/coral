@@ -44,6 +44,24 @@ export default class Experience {
     this.camera = new Camera();
     this.renderer = new Renderer();
 
+    if (this.debug.active) {
+      // this.debugFolder = this.debug.ui.addFolder("experience");
+      this.debug.ui
+        .add(
+          {
+            initNetworking: () => {
+              window.experience.networking = new Networking();
+
+              // hides Join Session after it's clicked
+              this.debug.ui.domElement.style.display = "none";
+            },
+          },
+          "initNetworking",
+        )
+        .name("Join Session");
+      // add a button that does     this.networking = new Networking();
+    }
+
     /**
      * Clock
      */
@@ -88,7 +106,6 @@ export default class Experience {
       // this is executed when out of XR i.e. desktop
       this.cameraGroup.updateMatrixWorld();
       this.camera.instance.updateMatrixWorld();
-      this.pointer.hover();
     } else {
       console.log("im in headset");
     }
