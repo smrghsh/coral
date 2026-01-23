@@ -2,7 +2,7 @@ import * as THREE from "three";
 import Experience from "../Experience.js";
 import Environment from "./Environment.js";
 import Floor from "./Floor.js";
-import { SplatMesh } from "./spark.module.js";
+import { SparkRenderer, SplatMesh } from "./spark.module.js";
 import Sky from "./Sky.js";
 export default class World {
   constructor() {
@@ -15,8 +15,6 @@ export default class World {
     this.ready = false;
     this.resources.on("ready", () => {
       this.floor = new Floor();
-      this.axesHelper = new THREE.AxesHelper(5);
-      this.scene.add(this.axesHelper);
       this.environment = new Environment();
 
       console.log("loading splat mesh");

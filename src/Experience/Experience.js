@@ -106,8 +106,6 @@ export default class Experience {
       // this is executed when out of XR i.e. desktop
       this.cameraGroup.updateMatrixWorld();
       this.camera.instance.updateMatrixWorld();
-    } else {
-      console.log("im in headset");
     }
     this.world.update();
   }
