@@ -1,5 +1,5 @@
 # coral
-![coralXR.png](coralXR.png
+![coralXR.png](coralXR.png)
 WebXR based exploration point cloud rendering of a coral reef. 
 
 ## Attributions
