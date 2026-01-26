@@ -22,6 +22,9 @@ The source code relies on packages and development tooling using npm.
 Source code consists of assets and small engine built using an Experience.js singleton model, largely structured and extended from a Bruno Simon approach (see [Lesson 26](https://threejs-journey.com/lessons/code-structuring-for-bigger-projects)). It leverages an alpha version of a the brahma library (imported as a submodule). Feel free to email @smrghsh for contribution opportunities.
 
 ## Attributions
+
 Dataset - [wildflow/sweet-corals](https://huggingface.co/datasets/wildflow/sweet-corals) on Hugging Face
+
 Skybox - [TODO, it's CC 2.0]
+
 [Goggle](https://skfb.ly/6Upwp) - Snorkel mask for Spark AR by inboundingbox.
