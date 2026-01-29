@@ -25,6 +25,6 @@ Source code consists of assets and small engine built using an Experience.js sin
 
 Dataset - [wildflow/sweet-corals](https://huggingface.co/datasets/wildflow/sweet-corals) on Hugging Face
 
-Skybox - [TODO, it's CC 2.0]
+Skybox - [Ocean HDRI](https://opengameart.org/content/ocean-hdriskybox) by sirsnowy7
 
 [Goggle](https://skfb.ly/6Upwp) - Snorkel mask for Spark AR by inboundingbox.
