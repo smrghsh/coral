@@ -38,11 +38,11 @@ export default class Experience {
     this.scene = new THREE.Scene();
     // console.log("sources", sources);
     this.resources = new Resources(sources);
-    this.world = new World();
     this.cameraGroup = new THREE.Group();
 
     this.camera = new Camera();
     this.renderer = new Renderer();
+    this.world = new World();
 
     if (this.debug.active) {
       // this.debugFolder = this.debug.ui.addFolder("experience");
