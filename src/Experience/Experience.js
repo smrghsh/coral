@@ -14,6 +14,7 @@ import EventEmitter from "./brahma/utilities/EventEmitter.js";
 import World from "./World/World.js";
 import sources from "./sources.js";
 import { VRButton } from "three/examples/jsm/webxr/VRButton.js";
+import Pointer from "./Utils/Pointer.js";
 
 let instance = null;
 
@@ -39,6 +40,10 @@ export default class Experience {
     // console.log("sources", sources);
     this.resources = new Resources(sources);
     this.cameraGroup = new THREE.Group();
+
+    this.selectableObjects = [];
+    this.grabbableObjects = [];
+    this.pointer = new Pointer();
 
     this.camera = new Camera();
     this.renderer = new Renderer();

@@ -12,46 +12,69 @@ export default class World {
     this.resources = this.experience.resources;
     this.renderer = this.experience.renderer;
 
+    // SOG cycling state
+    this.sogFiles = [
+      "./coral005-01.sog",
+      "./coral005-02.sog",
+      "./coral005-03.sog",
+    ];
+    this.currentSogIndex = 0;
+    this.splatMesh = null;
+
     // Wait for resources
     this.ready = false;
     this.resources.on("ready", () => {
       this.floor = new Floor();
       this.environment = new Environment();
 
-      console.log("loading splat mesh");
       try {
-        const splatMesh = new SplatMesh({
-          url: "./coral005-01.sog",
-          // PERFORMANCE: Limit splats to prevent GPU memory overload
-          // Reducing from millions to ~1M provides 50-70% FPS improvement
-          maxSplats: 500000,
-          // PERFORMANCE: Disable editing features if not needed
-          editable: true,
-        });
-        console.log("SplatMesh created:", splatMesh);
-
-        // Position and rotate similar to the commented GaussianSplats3D setup
-        splatMesh.rotation.x = -Math.PI;
-
-        // splatMesh.position.set(7, 6.8, -6);
-        // splatMesh.scale.set(1, 1, 1);
-
-        console.log("SplatMesh position:", splatMesh.position);
-        console.log("SplatMesh rotation:", splatMesh.rotation);
-        console.log("SplatMesh scale:", splatMesh.scale);
-
-        this.scene.add(splatMesh);
-        this.splatMesh = splatMesh; // Store reference
-        console.log("SplatMesh added to scene");
-
-        this.ensureSparkRenderer();
+        this.createSplatMesh(this.sogFiles[this.currentSogIndex]);
         this.configureRenderer();
       } catch (error) {
         console.error("Error creating SplatMesh:", error);
       }
+
       this.sky = new Sky();
       this.ready = true;
     });
+  }
+
+  createSplatMesh(url) {
+    console.log("loading splat mesh:", url);
+
+    const splatMesh = new SplatMesh({
+      url,
+      maxSplats: 500000,
+      editable: true,
+    });
+
+    splatMesh.rotation.x = -Math.PI;
+    this.scene.add(splatMesh);
+    this.splatMesh = splatMesh;
+
+    console.log("SplatMesh added to scene:", url);
+  }
+
+  cycleSplat(direction = 1) {
+    if (!this.ready || !this.sogFiles.length) return;
+
+    this.currentSogIndex =
+      (this.currentSogIndex + direction + this.sogFiles.length) %
+      this.sogFiles.length;
+
+    const nextUrl = this.sogFiles[this.currentSogIndex];
+
+    if (this.splatMesh) {
+      this.scene.remove(this.splatMesh);
+      if (typeof this.splatMesh.dispose === "function") {
+        this.splatMesh.dispose();
+      }
+      this.splatMesh = null;
+    }
+
+    this.createSplatMesh(nextUrl);
+    this.ensureSparkRenderer();
+    this.configureRenderer();
   }
 
   configureRenderer() {
