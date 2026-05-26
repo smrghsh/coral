@@ -29,6 +29,8 @@ export default class World {
 
       try {
         this.createSplatMesh(this.sogFiles[this.currentSogIndex]);
+        // Comment out ensureSparkRenderer() to not use optimization
+        this.ensureSparkRenderer();
         this.configureRenderer();
       } catch (error) {
         console.error("Error creating SplatMesh:", error);
