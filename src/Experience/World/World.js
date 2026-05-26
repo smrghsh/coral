@@ -21,12 +21,12 @@ export default class World {
       console.log("loading splat mesh");
       try {
         const splatMesh = new SplatMesh({
-          url: "./coral005.sog",
+          url: "./coral005-01.sog",
           // PERFORMANCE: Limit splats to prevent GPU memory overload
           // Reducing from millions to ~1M provides 50-70% FPS improvement
-          maxSplats: 100000,
+          maxSplats: 500000,
           // PERFORMANCE: Disable editing features if not needed
-          editable: false,
+          editable: true,
         });
         console.log("SplatMesh created:", splatMesh);
 
@@ -72,10 +72,10 @@ export default class World {
     // These reduce visual quality slightly but dramatically improve FPS
 
     // Maximum standard deviation distance - lower = tighter splat rendering
-    renderer.maxStdDev = 1.5; // default: sqrt(8) ≈ 2.83, reduce for faster rendering
+    renderer.maxStdDev = 2.83; // default: sqrt(8) ≈ 2.83, reduce for faster rendering
 
     // Blur amount for anti-aliasing - lower = less processing
-    renderer.blurAmount = 0.15; // default: 0.3, reduce for performance
+    renderer.blurAmount = 0.3; // default: 0.3, reduce for performance
 
     // Pre-blur for covariance - disable for performance
     renderer.preBlurAmount = 0; // default: 0
@@ -84,13 +84,13 @@ export default class World {
     renderer.minPixelRadius = 2; // default: 1, increase to skip small splats
 
     // Maximum pixel radius - cap splat size
-    renderer.maxPixelRadius = 16; // default: 256, reduce to limit overdraw
+    renderer.maxPixelRadius = 32; // default: 256, reduce to limit overdraw
 
     // Minimum alpha - skip very transparent splats
-    renderer.minAlpha = 1 / 128; // default: 0.5 * (1/255), less aggressive culling
+    renderer.minAlpha = 1 / 255; // default: 0.5 * (1/255), less aggressive culling
 
     // Enable 2D gaussian rendering for flatter models (test if helpful)
-    renderer.enable2DGS = false; // default: false
+    renderer.enable2DGS = true; // default: false
 
     console.log("✓ SparkRenderer configured for performance");
     console.log(`  maxStdDev: ${renderer.maxStdDev}`);
