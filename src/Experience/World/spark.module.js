@@ -9397,6 +9397,7 @@ const _PackedSplats = class _PackedSplats {
         Math.floor(this.maxSplats / SPLAT_TEX_WIDTH) * SPLAT_TEX_WIDTH;
       this.numSplats = Math.min(
         this.maxSplats,
+        options.maxSplats ?? Number.POSITIVE_INFINITY,
         options.numSplats ?? Number.POSITIVE_INFINITY,
       );
     } else {
